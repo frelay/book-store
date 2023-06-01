@@ -1,0 +1,31 @@
+{
+    "name": "book-store",
+    "version": "1.0.0",
+    "description": "SPA project for online-school SkillFactory - Book Store",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/frelay/book-store.git"
+    },
+    "author": "Pavel Makarov",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/frelay/book-store/issues"
+    },
+    "homepage": "https://github.com/frelay/book-store#readme",
+    "devDependencies": {
+        "css-loader": "^6.8.1",
+        "html-webpack-plugin": "^5.5.1",
+        "mini-css-extract-plugin": "^2.7.6",
+        "style-loader": "^3.3.3",
+        "webpack": "^5.85.0",
+        "webpack-cli": "^5.1.1"
+    },
+    "dependencies": {
+        "terser-webpack-plugin": "^5.3.9"
+    }
+}
