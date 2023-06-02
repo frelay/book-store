@@ -18,6 +18,7 @@ module.exports = {
     },
     module: {
         rules: [
+            // CSS
             {
                 test: /\.css$/,
                 use: [
@@ -29,6 +30,11 @@ module.exports = {
                     },
                     "css-loader",
                 ],
+            },
+            // Images
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/,
+                use: ["file-loader"],
             },
         ],
     },

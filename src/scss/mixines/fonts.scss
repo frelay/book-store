@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&family=Open+Sans&display=swap");
+
+// Миксины шрифтов
+@mixin montserrat-black {
+    font-family: "Montserrat";
+    font-weight: 900;
+    font-size: 0.625rem;
+    line-height: 0.76rem;
+    color: #1c2a39;
+}
+
+@mixin montserrat-bold {
+    font-family: "Montserrat";
+    font-weight: 700;
+}
+
+@mixin montserrat-medium {
+    font-family: "Montserrat";
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: #5c6a79;
+    line-height: 0.9rem;
+}
+
+@mixin open-sans-regular {
+    font-family: "Open Sans";
+    font-weight: 400;
+    font-size: 0.625rem;
+    line-height: 0.85rem;
+    color: #5c6a79;
+}
