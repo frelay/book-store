@@ -18,7 +18,9 @@
             <nav class="header__navigation">
                 <ul class="header__nav-list">
                     <li class="header__nav-list-item">
-                        <a href="#" class="header__nav-list-link">books</a>
+                        <a href="#" class="header__nav-list-link active-link"
+                            >books</a
+                        >
                     </li>
                     <li class="header__nav-list-item">
                         <a href="#" class="header__nav-list-link">audiobooks</a>
@@ -63,6 +65,50 @@
                 </li>
             </ul>
         </header>
+        <!-- Слайдер -->
+        <section class="slider container">
+            <div class="decoration-block_purple">
+                <p class="decoration-block_purple__text_purple">
+                    Change old book on new
+                </p>
+                <img
+                    src="/src/icons/slider-icons/arrow-right.svg"
+                    alt="Right arrow"
+                    class="decoration-block_purple__icon_purple"
+                />
+            </div>
+            <div class="decoration-block_pink">
+                <p class="decoration-block_pink__text_pink">
+                    top 100 books 2022
+                </p>
+                <img
+                    src="/src/icons/slider-icons/arrow-right.svg"
+                    alt="Right arrow"
+                    class="decoration-block_pink__icon_pink"
+                />
+            </div>
+            <img
+                src="/src/img/slider-img/banners/first-banner.png"
+                alt="First banner"
+                class="slider__img fade"
+            />
+            <img
+                src="/src/img/slider-img/banners/second-banner.jpg"
+                alt="Second banner"
+                class="slider__img fade"
+            />
+            <img
+                src="/src/img/slider-img/banners/third-banner.jpg"
+                alt="Third banner"
+                class="slider__img fade"
+            />
+            <!-- Точки слайдера -->
+            <div class="slider__dots">
+                <span class="slider__dot"></span>
+                <span class="slider__dot"></span>
+                <span class="slider__dot"></span>
+            </div>
+        </section>
         <script src="/dist/main.js"></script>
     </body>
 </html>

@@ -1,3 +1,8 @@
-import "../css/style.css";
+"use strict";
 
-console.log("Hello");
+import "../css/style.css";
+import * as slider from "../scss/slider/slider.js";
+
+window.addEventListener("DOMContentLoaded", () => {
+    slider.showSlides();
+});

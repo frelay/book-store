@@ -2,12 +2,13 @@
 @import "./utils/reset.scss";
 @import "./variables/variables.scss";
 @import "./header/header.scss";
+@import "./slider/slider.scss";
 
 * {
     background: $main-background-color;
 }
 
 .container {
-    max-width: 90rem;
+    max-width: 70rem;
     margin: 0 auto;
 }

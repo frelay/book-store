@@ -1,5 +1,4 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 
 module.exports = {
@@ -7,11 +6,7 @@ module.exports = {
     output: {
         filename: "main.js",
     },
-    plugins: [
-        new MiniCssExtractPlugin(),
-        new HtmlWebpackPlugin(),
-        new TerserWebpackPlugin(),
-    ],
+    plugins: [new MiniCssExtractPlugin(), new TerserWebpackPlugin()],
     optimization: {
         minimize: true,
         minimizer: [new TerserWebpackPlugin()],

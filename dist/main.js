@@ -1,1 +1,1 @@
-(()=>{"use strict";console.log("Hello")})();
+(()=>{"use strict";const e=document.querySelectorAll(".slider__img"),t=document.querySelectorAll(".slider__dot");document.querySelectorAll(".slider__dots");let l=0;function o(){e.forEach((e=>{e.style.display="none"})),l++,l>e.length&&(l=1),t.forEach((e=>{e.className=e.className.replace(" active-dot","")})),e[l-1].style.display="block",t[l-1].className+=" active-dot",setTimeout(o,5e3)}window.addEventListener("DOMContentLoaded",(()=>{o()}))})();
