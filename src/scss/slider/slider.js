@@ -1,14 +1,13 @@
 "use strict";
 
 // Получаем элементы
-const slides = document.querySelectorAll(".slider__img"),
-    dots = document.querySelectorAll(".slider__dot"),
-    sliderDots = document.querySelectorAll(".slider__dots");
+export const slides = document.querySelectorAll(".slider__img"),
+    dots = document.querySelectorAll(".slider__dot");
 
 let slideIndex = 0;
 
-// Функция показа слайдов
-export function showSlides() {
+// Функция показа слайдов автоматически
+export function autoShowSlides() {
     slides.forEach((slide) => {
         slide.style.display = "none";
     });
@@ -25,8 +24,26 @@ export function showSlides() {
 
     slides[slideIndex - 1].style.display = "block";
     dots[slideIndex - 1].className += " active-dot";
-    setTimeout(showSlides, 5000);
+    setTimeout(autoShowSlides, 5000);
 }
 
-// TODO
-// Сделать для слайдера управление по нажатию на кружки!
+// Функция показа слайда по клику на кружок
+export function setActiveSlide() {
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", (e) => {
+            dots.forEach((dot) => {
+                if (dot.classList.contains("active-dot")) {
+                    dot.classList.remove("active-dot");
+                }
+            });
+
+            e.target.classList.add("active-dot");
+
+            slides.forEach((slide) => {
+                slide.style.display = "none";
+            });
+
+            slides[index].style.display = "block";
+        });
+    });
+}

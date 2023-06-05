@@ -4,5 +4,6 @@ import "../css/style.css";
 import * as slider from "../scss/slider/slider.js";
 
 window.addEventListener("DOMContentLoaded", () => {
-    slider.showSlides();
+    slider.autoShowSlides();
+    slider.setActiveSlide();
 });
