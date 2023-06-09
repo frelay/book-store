@@ -1,0 +1,8 @@
+@import "./categories/categories.scss";
+@import "./book-cards/book-cards.scss";
+
+.content-wrapper {
+    position: relative;
+    max-width: 90rem;
+    margin: 0 auto;
+}

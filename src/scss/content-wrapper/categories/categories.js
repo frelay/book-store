@@ -1,7 +1,7 @@
 "use strict";
 
 // Получаем элементы
-const categoryList = document.querySelector(".categories__list"),
+export const categoryList = document.querySelector(".categories__list"),
     categoryListItem = document.querySelectorAll(".categories__list-item");
 
 // Функция делает категорию активной

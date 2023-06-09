@@ -3,7 +3,7 @@
 @import "./variables/variables.scss";
 @import "./header/header.scss";
 @import "./slider/slider.scss";
-@import "./categories/categories.scss";
+@import "./content-wrapper/content-wrapper.scss";
 
 * {
     background: $main-background-color;
@@ -11,10 +11,5 @@
 
 .container {
     max-width: 70rem;
-    margin: 0 auto;
-}
-
-.content-wrapper {
-    max-width: 90rem;
     margin: 0 auto;
 }
