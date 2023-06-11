@@ -1,0 +1,17 @@
+@import "../mixines/buttons/btn.scss";
+@import "../mixines/fonts.scss";
+
+.btn-wrapper {
+    min-height: 7.4375rem;
+    &__load-btn {
+        display: block;
+        margin: 0 63.125rem;
+        margin-bottom: 4.7rem;
+        @include default-btn;
+        @include montserrat-bold;
+        transition: 0.5s;
+        &:hover {
+            @include default-btn-hover;
+        }
+    }
+}

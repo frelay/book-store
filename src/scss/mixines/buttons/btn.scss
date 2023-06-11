@@ -1,0 +1,16 @@
+@mixin default-btn {
+    width: 11rem;
+    height: 2.8125rem;
+    border: 1px solid #4c3db2;
+    font-size: 0.5rem;
+    line-height: 0.625rem;
+    text-transform: uppercase;
+    color: #4c3db2;
+    cursor: pointer;
+}
+
+@mixin default-btn-hover {
+    background-color: #4169e1;
+    border: 2px solid #4169e1;
+    color: #fff;
+}

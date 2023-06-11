@@ -1,7 +1,68 @@
 @import "../../mixines/fonts.scss";
+@import "../../mixines/buttons/btn.scss";
 
 .book-cards {
+    display: flex;
+    flex-wrap: wrap;
     position: absolute;
     top: 2.81rem;
     left: 23rem;
+    &__card {
+        display: flex;
+        margin-right: 4.45rem;
+        margin-bottom: 5.625rem;
+    }
+    &__img {
+        display: block;
+        width: 13.25rem;
+        height: 18.75rem;
+        margin-right: 2.25rem;
+        box-shadow: 0px 24px 36px rgba(53, 49, 84, 0.28);
+    }
+    &__text {
+        max-width: 11rem;
+        padding-top: 2.19rem;
+    }
+    &__author {
+        @include open-sans-regular;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        margin-bottom: 0.25rem;
+    }
+    &__title {
+        @include montserrat-bold;
+        line-height: 1.25rem;
+        color: #1c2a39;
+        margin-bottom: 0.25rem;
+    }
+    &__description {
+        @include open-sans-regular;
+        max-height: 2.44rem;
+        overflow: hidden;
+        margin-bottom: 1rem;
+    }
+    &__price {
+        @include montserrat-bold;
+        font-size: 0.8125rem;
+        line-height: 1rem;
+        color: #1c2a39;
+        margin-bottom: 1rem;
+    }
+    &__btn {
+        @include default-btn;
+        @include montserrat-bold;
+        transition: 0.5s;
+    }
+    &__btn:hover {
+        @include default-btn-hover;
+    }
+}
+
+.disabled-btn {
+    @include default-btn;
+    @include montserrat-bold;
+    color: #5c6a79;
+    border: 1px solid #5c6a79;
+    cursor: default;
 }

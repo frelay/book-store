@@ -16,6 +16,8 @@ export function getCardsByCategory() {
 
 // Функция рендер
 function displayResult(apiData) {
+    const authorsPlaceholder = "author not specified";
+    const noPrice = "Not for sale";
     let cards = "";
 
     console.log(apiData);
@@ -23,7 +25,32 @@ function displayResult(apiData) {
     apiData.items.forEach((item) => {
         const cardBlock = `
         <div class="book-cards__card">
-            <img src="${item.volumeInfo.imageLinks.thumbnail}" class="book-cards__img"/>
+            <img src="${
+                item.volumeInfo.imageLinks.thumbnail
+            }" class="book-cards__img"/>
+            <div class="book-cards__text">
+                <p class="book-cards__author">${
+                    item.volumeInfo.authors
+                        ? item.volumeInfo.authors
+                        : authorsPlaceholder
+                }</p>
+                <p class="book-cards__title">${item.volumeInfo.title}</p>
+                <p class="book-cards__description">${
+                    item.volumeInfo.description
+                }</p>
+                <p class="book-cards__price">${
+                    item.saleInfo.retailPrice
+                        ? item.saleInfo.retailPrice.amount +
+                          " " +
+                          item.saleInfo.retailPrice.currencyCode
+                        : noPrice
+                }</p>
+                <button class="${
+                    item.saleInfo.retailPrice
+                        ? "book-cards__btn"
+                        : "disabled-btn"
+                }">buy now</button>
+            </div>
         </div>`;
 
         cards = cards + cardBlock;
