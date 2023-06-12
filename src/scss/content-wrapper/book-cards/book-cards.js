@@ -27,6 +27,8 @@ function displayResult(apiData) {
         <div class="book-cards__card">
             <img src="${
                 item.volumeInfo.imageLinks.thumbnail
+                    ? item.volumeInfo.imageLinks.thumbnail
+                    : "/src/img/cards-img/imagePlaceholder.png"
             }" class="book-cards__img"/>
             <div class="book-cards__text">
                 <p class="book-cards__author">${
@@ -35,6 +37,18 @@ function displayResult(apiData) {
                         : authorsPlaceholder
                 }</p>
                 <p class="book-cards__title">${item.volumeInfo.title}</p>
+                <div class="rating">
+                    <div class="rating__body">
+                        <div class="rating__active" style="width: ${
+                            item.volumeInfo.averageRating / 0.05
+                        }%"></div>  
+                        <p class="rating__review">${
+                            item.volumeInfo.ratingsCount
+                                ? item.volumeInfo.ratingsCount
+                                : 0
+                        } review</p>    
+                    </div>
+                </div>
                 <p class="book-cards__description">${
                     item.volumeInfo.description
                 }</p>
@@ -65,17 +79,14 @@ function useRequest(category) {
         `https://www.googleapis.com/books/v1/volumes?q="subject:${category}"&key=AIzaSyCQbSqaHFYuQo8gpB5hi-3wu4jOa22C_MY&printType=books&startIndex=0&maxResults=6&orderBy=newest&langRestrict=en`
     )
         .then((response) => {
-            // console.log(response);
             return response.json();
         })
         .then((json) => {
-            // console.log("JSON - " + JSON.parse(json));
             displayResult(json);
             // Кладём в localStorage полученный JSON
             // localStorage.setItem("myJSON", JSON.stringify(json));
         })
         .catch((err) => {
-            // console.log(err);
             return err;
         });
 }

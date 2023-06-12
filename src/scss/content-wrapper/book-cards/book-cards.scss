@@ -32,13 +32,19 @@
     }
     &__title {
         @include montserrat-bold;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
         line-height: 1.25rem;
         color: #1c2a39;
         margin-bottom: 0.25rem;
     }
     &__description {
         @include open-sans-regular;
-        max-height: 2.44rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
         overflow: hidden;
         margin-bottom: 1rem;
     }
@@ -65,4 +71,44 @@
     color: #5c6a79;
     border: 1px solid #5c6a79;
     cursor: default;
+}
+
+.rating {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+    &__body {
+        position: relative;
+        display: flex;
+        &::before {
+            content: "★★★★★";
+            display: block;
+            font-size: 0.75rem;
+            color: #eeedf5;
+        }
+    }
+    &__active {
+        position: absolute;
+        width: 0;
+        height: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        &::before {
+            content: "★★★★★";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            color: #f2c94c;
+            font-size: 0.75rem;
+        }
+    }
+    &__review {
+        @include open-sans-regular;
+        position: absolute;
+        left: 4.31rem;
+        width: 6.25rem;
+    }
 }
