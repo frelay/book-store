@@ -73,6 +73,14 @@
     cursor: default;
 }
 
+.in-cart-btn {
+    @include default-btn;
+    @include montserrat-bold;
+    border: 1px solid #eeedf5;
+    cursor: default;
+    color: #5c6a79;
+}
+
 .rating {
     display: flex;
     align-items: flex-end;

@@ -23,6 +23,7 @@
         align-items: center;
     }
     &__button {
+        position: relative;
         border-style: none;
         cursor: pointer;
     }
@@ -33,4 +34,22 @@
 
 .active-link {
     @include montserrat-black;
+}
+
+.cart-counter {
+    display: none;
+    width: 0.8125rem;
+    height: 0.8125rem;
+    border-radius: 50%;
+    background-color: #ff353a;
+    position: absolute;
+    top: 0.625rem;
+    left: 0.625rem;
+    @include montserrat-medium;
+    font-size: 0.625rem;
+    color: #fff;
+}
+
+.cart-counter-visible {
+    display: block;
 }

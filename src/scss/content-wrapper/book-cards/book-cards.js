@@ -71,6 +71,7 @@ function displayResult(apiData) {
     });
 
     cardsNode.innerHTML = cards;
+    addInCart();
 }
 
 // Функция для fetch запроса
@@ -89,4 +90,22 @@ function useRequest(category) {
         .catch((err) => {
             return err;
         });
+}
+
+// Функция добавления в корзину
+function addInCart() {
+    const activeBtn = document.querySelectorAll(".book-cards__btn");
+    const cartCounter = document.querySelector(".cart-counter");
+
+    activeBtn.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            btn.classList.replace("book-cards__btn", "in-cart-btn");
+            btn.innerText = "in the cart";
+
+            if (!cartCounter.classList.contains("cart-counter-visible")) {
+                cartCounter.classList.add("cart-counter-visible");
+            }
+            ++cartCounter.innerText;
+        });
+    });
 }
