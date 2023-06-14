@@ -5,6 +5,8 @@ import * as categories from "../categories/categories.js";
 // Получаем элементы
 const cardsNode = document.querySelector(".book-cards");
 
+const booksInCart = [];
+
 // Обработчик
 export function getCardsByCategory() {
     useRequest(categories.categoryListItem[0].outerText);
@@ -20,7 +22,7 @@ function displayResult(apiData) {
     const noPrice = "Not for sale";
     let cards = "";
 
-    console.log(apiData);
+    // console.log(apiData);
 
     apiData.items.forEach((item) => {
         const cardBlock = `
@@ -71,7 +73,7 @@ function displayResult(apiData) {
     });
 
     cardsNode.innerHTML = cards;
-    addInCart();
+    addOrRemoveBook(apiData);
 }
 
 // Функция для fetch запроса
@@ -92,20 +94,89 @@ function useRequest(category) {
         });
 }
 
-// Функция добавления в корзину
-function addInCart() {
+// Функция добавления/удаления из корзины
+function addOrRemoveBook(apiData) {
     const activeBtn = document.querySelectorAll(".book-cards__btn");
     const cartCounter = document.querySelector(".cart-counter");
+    let bookId;
+
+    console.log(apiData);
 
     activeBtn.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            btn.classList.replace("book-cards__btn", "in-cart-btn");
-            btn.innerText = "in the cart";
+        btn.addEventListener("click", (e) => {
+            bookId = getBookId(apiData, e);
+
+            if (btn.classList.contains("book-cards__btn")) {
+                addBookIDInArray(bookId);
+                btn.classList.replace("book-cards__btn", "in-cart-btn");
+                btn.innerText = "in the cart";
+            } else if (btn.classList.contains("in-cart-btn")) {
+                removeBookIDFromArray(bookId);
+                btn.classList.replace("in-cart-btn", "book-cards__btn");
+                btn.innerText = "buy now";
+            }
 
             if (!cartCounter.classList.contains("cart-counter-visible")) {
                 cartCounter.classList.add("cart-counter-visible");
             }
-            ++cartCounter.innerText;
+
+            cartCounter.innerText = booksInCart.length;
+
+            if (cartCounter.textContent === "0") {
+                cartCounter.classList.remove("cart-counter-visible");
+            }
         });
+
+        // console.log(getBookIdByBtn(apiData, btn));
+
+        if (booksInCart.includes(getBookIdByBtn(apiData, btn))) {
+            btn.classList.replace("book-cards__btn", "in-cart-btn");
+            btn.innerText = "in the cart";
+        }
     });
+}
+
+// Функция получает ID книги при клике на кнопку купить
+function getBookId(apiData, eventTarget) {
+    let book;
+
+    book = apiData.items.find((item) => {
+        if (
+            item.volumeInfo.title ===
+            eventTarget.target.parentNode.querySelector(".book-cards__title")
+                .textContent
+        ) {
+            return item;
+        }
+    });
+
+    return book.id;
+}
+
+// Функция добавляет ID книги в массив корзины
+function addBookIDInArray(bookId) {
+    if (!booksInCart.includes(bookId)) {
+        booksInCart.push(bookId);
+    }
+}
+
+// Функция удаляет ID книги из массива корзины
+function removeBookIDFromArray(bookId) {
+    if (booksInCart.includes(bookId)) {
+        booksInCart.splice(booksInCart.indexOf(bookId), 1);
+    }
+}
+
+// Функция получает ID книги из названия на карточке
+function getBookIdByBtn(apiData, btn) {
+    let book = apiData.items.find((item) => {
+        if (
+            item.volumeInfo.title ===
+            btn.parentElement.querySelector(".book-cards__title").textContent
+        ) {
+            return item;
+        }
+    });
+
+    return book.id;
 }
