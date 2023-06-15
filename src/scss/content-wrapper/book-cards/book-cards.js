@@ -195,8 +195,8 @@ function addBooksInLocalStorage(booksInCart) {
 
 // Функция убирает из localStorage книги, которые убрали из корзины
 function removeBooksFromStorage(bookId, books) {
-    const bookStorage = localStorage.getItem(books).split(",");
-    bookStorage.splice(bookStorage.indexOf(bookId), 1);
+    let bookStorage = localStorage.getItem(books).split(",");
+    bookStorage = bookStorage.splice(bookStorage.indexOf(bookId), 1);
     addBooksInLocalStorage(bookStorage);
 }
 
