@@ -9,20 +9,22 @@ const booksInCart = [];
 
 // Обработчик
 export function getCardsByCategory() {
-    useRequest(categories.categoryListItem[0].outerText);
+    const startIndex = 0;
+
+    useRequest(categories.categoryListItem[0].outerText, cardsNode, startIndex);
 
     categories.categoryList.addEventListener("click", (e) => {
-        useRequest(e.target.outerText);
+        useRequest(e.target.outerText, cardsNode, startIndex);
     });
 }
 
 // Функция рендер
-function displayResult(apiData) {
+function displayResult(apiData, cardsNode) {
     const authorsPlaceholder = "author not specified";
     const noPrice = "Not for sale";
     let cards = "";
 
-    // console.log(apiData);
+    console.log(apiData);
 
     apiData.items.forEach((item) => {
         const cardBlock = `
@@ -77,15 +79,15 @@ function displayResult(apiData) {
 }
 
 // Функция для fetch запроса
-function useRequest(category) {
+export function useRequest(category, cardsNode, startIndex) {
     fetch(
-        `https://www.googleapis.com/books/v1/volumes?q="subject:${category}"&key=AIzaSyCQbSqaHFYuQo8gpB5hi-3wu4jOa22C_MY&printType=books&startIndex=0&maxResults=6&orderBy=newest&langRestrict=en`
+        `https://www.googleapis.com/books/v1/volumes?q="subject:${category}"&key=AIzaSyCQbSqaHFYuQo8gpB5hi-3wu4jOa22C_MY&printType=books&startIndex=${startIndex}&maxResults=6&orderBy=newest&langRestrict=en`
     )
         .then((response) => {
             return response.json();
         })
         .then((json) => {
-            displayResult(json);
+            displayResult(json, cardsNode);
             // Кладём в localStorage полученный JSON
             // localStorage.setItem("myJSON", JSON.stringify(json));
         })
@@ -100,7 +102,9 @@ function addOrRemoveBook(apiData) {
     const cartCounter = document.querySelector(".cart-counter");
     let bookId;
 
-    console.log(apiData);
+    // console.log(apiData);
+    // console.log(activeBtn);
+    getBooksFromStorage();
 
     activeBtn.forEach((btn) => {
         btn.addEventListener("click", (e) => {
@@ -127,9 +131,10 @@ function addOrRemoveBook(apiData) {
             }
         });
 
-        // console.log(getBookIdByBtn(apiData, btn));
-
-        if (booksInCart.includes(getBookIdByBtn(apiData, btn))) {
+        if (
+            booksInCart.includes(getBookIdByBtn(apiData, btn)) ||
+            getBooksFromStorage().includes(getBookIdByBtn(apiData, btn))
+        ) {
             btn.classList.replace("book-cards__btn", "in-cart-btn");
             btn.innerText = "in the cart";
         }
@@ -157,6 +162,7 @@ function getBookId(apiData, eventTarget) {
 function addBookIDInArray(bookId) {
     if (!booksInCart.includes(bookId)) {
         booksInCart.push(bookId);
+        addBooksInLocalStorage(booksInCart);
     }
 }
 
@@ -164,6 +170,7 @@ function addBookIDInArray(bookId) {
 function removeBookIDFromArray(bookId) {
     if (booksInCart.includes(bookId)) {
         booksInCart.splice(booksInCart.indexOf(bookId), 1);
+        removeBooksFromStorage(bookId, "books");
     }
 }
 
@@ -179,4 +186,30 @@ function getBookIdByBtn(apiData, btn) {
     });
 
     return book.id;
+}
+
+// Функция добавляет в localStorage книги, которые положили в корзину
+function addBooksInLocalStorage(booksInCart) {
+    localStorage.setItem("books", booksInCart);
+}
+
+// Функция убирает из localStorage книги, которые убрали из корзины
+function removeBooksFromStorage(bookId, books) {
+    const bookStorage = localStorage.getItem(books).split(",");
+    bookStorage.splice(bookStorage.indexOf(bookId), 1);
+    addBooksInLocalStorage(bookStorage);
+}
+
+// Функция достает из localStorage книги, если перезагрузили страницу
+function getBooksFromStorage() {
+    const cartCounter = document.querySelector(".cart-counter");
+    const localStorageBooks = localStorage.getItem("books").split(",");
+
+    if (localStorage.getItem("books")) {
+        // console.log("Книжки в хранилище");
+        cartCounter.classList.add("cart-counter-visible");
+        cartCounter.innerText = localStorageBooks.length;
+    }
+
+    return localStorageBooks;
 }

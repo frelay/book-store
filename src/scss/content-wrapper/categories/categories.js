@@ -18,5 +18,14 @@ export function setActiveCategory() {
 
             e.target.classList.add("active-category");
         }
+
+        const loadCardsNode = document.querySelector(".btn-wrapper");
+        const loadBlocks = loadCardsNode.querySelectorAll(".load-block");
+
+        if (loadBlocks.length > 0) {
+            loadBlocks.forEach((loadBlock) => {
+                loadBlock.remove();
+            });
+        }
     });
 }
