@@ -5,7 +5,9 @@ import * as categories from "../categories/categories.js";
 // Получаем элементы
 const cardsNode = document.querySelector(".book-cards");
 
-const booksInCart = [];
+const booksInCart = localStorage.getItem("books")
+    ? localStorage.getItem("books").split(",")
+    : [];
 
 // Обработчик
 export function getCardsByCategory() {
@@ -88,8 +90,6 @@ export function useRequest(category, cardsNode, startIndex) {
         })
         .then((json) => {
             displayResult(json, cardsNode);
-            // Кладём в localStorage полученный JSON
-            // localStorage.setItem("myJSON", JSON.stringify(json));
         })
         .catch((err) => {
             return err;
@@ -104,7 +104,6 @@ function addOrRemoveBook(apiData) {
 
     // console.log(apiData);
     // console.log(activeBtn);
-    getBooksFromStorage();
 
     activeBtn.forEach((btn) => {
         btn.addEventListener("click", (e) => {
@@ -131,14 +130,14 @@ function addOrRemoveBook(apiData) {
             }
         });
 
-        if (
-            booksInCart.includes(getBookIdByBtn(apiData, btn)) ||
-            getBooksFromStorage().includes(getBookIdByBtn(apiData, btn))
-        ) {
+        if (booksInCart.includes(getBookIdByBtn(apiData, btn))) {
             btn.classList.replace("book-cards__btn", "in-cart-btn");
             btn.innerText = "in the cart";
         }
     });
+
+    getBooksFromStorage(apiData, activeBtn);
+    // console.log(getBooksFromStorage());
 }
 
 // Функция получает ID книги при клике на кнопку купить
@@ -162,16 +161,19 @@ function getBookId(apiData, eventTarget) {
 function addBookIDInArray(bookId) {
     if (!booksInCart.includes(bookId)) {
         booksInCart.push(bookId);
-        addBooksInLocalStorage(booksInCart);
     }
+
+    addBooksInLocalStorage(booksInCart);
 }
 
 // Функция удаляет ID книги из массива корзины
 function removeBookIDFromArray(bookId) {
     if (booksInCart.includes(bookId)) {
         booksInCart.splice(booksInCart.indexOf(bookId), 1);
-        removeBooksFromStorage(bookId, "books");
     }
+
+    // console.log(booksInCart);
+    removeBooksFromStorage(bookId, "books");
 }
 
 // Функция получает ID книги из названия на карточке
@@ -196,20 +198,30 @@ function addBooksInLocalStorage(booksInCart) {
 // Функция убирает из localStorage книги, которые убрали из корзины
 function removeBooksFromStorage(bookId, books) {
     let bookStorage = localStorage.getItem(books).split(",");
-    bookStorage = bookStorage.splice(bookStorage.indexOf(bookId), 1);
-    addBooksInLocalStorage(bookStorage);
+    bookStorage.splice(bookStorage.indexOf(bookId), 1);
+    localStorage.setItem("books", bookStorage);
 }
 
 // Функция достает из localStorage книги, если перезагрузили страницу
-function getBooksFromStorage() {
+function getBooksFromStorage(apiData, activeBtn) {
     const cartCounter = document.querySelector(".cart-counter");
     const localStorageBooks = localStorage.getItem("books").split(",");
+    // const activeBtn = document.querySelectorAll(".book-cards__btn");
 
     if (localStorage.getItem("books")) {
         // console.log("Книжки в хранилище");
         cartCounter.classList.add("cart-counter-visible");
         cartCounter.innerText = localStorageBooks.length;
     }
+
+    activeBtn.forEach((btn) => {
+        console.log(getBookIdByBtn(apiData, btn));
+        if (localStorageBooks.includes(getBookIdByBtn(apiData, btn))) {
+            btn.classList.replace("book-cards__btn", "in-cart-btn");
+            btn.innerText = "in the cart";
+        }
+    });
+    // console.log(localStorageBooks);
 
     return localStorageBooks;
 }
